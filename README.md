@@ -31,6 +31,24 @@ If you've installed `v8util` with cpm then you can just reference the `v8util.h`
 $ g++ v8/out/native/libv8.dylib deps/v8util.h deps/v8util.cc -Iv8/include program.cc -o program
 ```
 
+### node-gyp
+
+You can include `v8util` in your node.js addon by simply including it in the "sources" array in your `binding.gyp` file
+
+```gyp
+{
+	"targets": [
+		{
+			"target_name": "myaddon",
+			"sources": [
+				"deps/v8util.h", "deps/v8util.cc",
+				"src/myaddon.cc"
+			]
+		}
+	]
+}
+```
+
 ## api
 
 ### const char *v8util::strtocstr (const v8::String::Utf8Value &str)
