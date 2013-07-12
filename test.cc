@@ -55,6 +55,13 @@ main (int argc, char *argv[]) {
 
     v8::Local<v8::Value> basic_value = v8util::evaljs("v8util", basic_cstrjs);
     assert(!basic_value.IsEmpty());
+
+    // if (basic_value->IsObject()) {
+    //     v8::String::Utf8Value ustr(basic_value->ToObject()->Get(v8::String::New("foo")));
+    //     const char *cstr = v8util::strtocstr(ustr);
+    //     printf("%s\n", cstr);
+    //     puts("object");
+    // }
     
     
     /**

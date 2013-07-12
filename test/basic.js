@@ -1,3 +1,3 @@
 (function (global) {
-	return {};
+	return { foo: "bar" };
 })(this);

@@ -64,7 +64,7 @@ v8util::readjs (const char *file) {
 
 
 v8::Handle<v8::Value>
-v8util::evaljs (const char *name, const char *source, bool print_result) {
+v8util::evaljs (const char *name, const char *source, bool report_exception, bool print_result) {
 	v8::Isolate *isolate = v8::Isolate::GetCurrent();
 	v8::HandleScope scope(isolate);
 	v8::Handle<v8::Value> empty_result;
@@ -74,7 +74,7 @@ v8util::evaljs (const char *name, const char *source, bool print_result) {
 	v8::Handle<v8::Script> script = v8::Script::Compile(v8::String::New(source), v8::String::New(name));
 
 	if (script.IsEmpty()) {
-		if (print_result) v8util::exception(&trycatch);
+		if (report_exception) v8util::exception(&trycatch);
 		return empty_result;
 	}
 
@@ -85,7 +85,7 @@ v8util::evaljs (const char *name, const char *source, bool print_result) {
 	if (result.IsEmpty()) {
 		// assert that we caught the exception before reporting it
 		assert(trycatch.HasCaught());
-		if (print_result) v8util::exception(&trycatch);
+		if (report_exception) v8util::exception(&trycatch);
 		return result;
 	}
 
@@ -151,4 +151,44 @@ v8util::exception (v8::TryCatch *trycatch) {
     strace_str = v8util::strtocstr(strace);
     fprintf(stderr, "%s\n", strace_str);
   }
+}
+
+
+void
+v8util::ThrowError (const char *message) {
+  v8::ThrowException(
+    v8::Exception::Error(v8::String::New(message))
+  );
+}
+
+
+void
+v8util::ThrowRangeError (const char *message) {
+  v8::ThrowException(
+    v8::Exception::RangeError(v8::String::New(message))
+  );
+}
+
+
+void
+v8util::ThrowReferenceError (const char *message) {
+  v8::ThrowException(
+    v8::Exception::ReferenceError(v8::String::New(message))
+  );
+}
+
+
+void
+v8util::ThrowSyntaxError (const char *message) {
+  v8::ThrowException(
+    v8::Exception::SyntaxError(v8::String::New(message))
+  );
+}
+
+
+void
+v8util::ThrowTypeError (const char *message) {
+  v8::ThrowException(
+    v8::Exception::TypeError(v8::String::New(message))
+  );
 }

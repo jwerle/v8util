@@ -93,7 +93,7 @@ const char *cstr = v8util::strtocstr(utfstr);
 assert(NULL != cstr);
 ```
 
-### v8::Handle\<v8::Value> evaljs (const char *name, const char *source, bool print_result = false);
+### v8::Handle\<v8::Value> evaljs (const char *name, const char *source, bool report_exception = true, bool print_result = false);
 
 Evaluates JavaScript from a given string and returns the v8 representation of its return value
 
@@ -124,6 +124,57 @@ bool exception_result = v8util::evaljs("v8util", cstr);
 
 assert(false == exception_result);
 ```
+
+### void ThrowError (const char *message)
+
+Throws an `Error` exception with a message
+
+***example***
+
+```c++
+v8util::ThrowError("Error");
+```
+
+### void ThrowRangeError (const char *message)
+
+Throws a `RangeError` exception with a message
+
+***example***
+
+```c++
+v8util::ThrowRangeError("RangeError");
+```
+
+### void ThrowReferenceError (const char *message)
+
+Throws a `ReferenceError` exception with a message
+
+***example***
+
+```c++
+v8util::ThrowReferenceError("ReferenceError");
+```
+
+### void ThrowSyntaxError (const char *message)
+
+Throws a `SyntaxError` exception with a message
+
+***example***
+
+```c++
+v8util::ThrowSyntaxError("SyntaxError");
+```
+
+### void ThrowTypeError (const char *message)
+
+Throws a `TypeError` exception with a message
+
+***example***
+
+```c++
+v8util::ThrowTypeError("TypeError");
+```
+
 
 ## license
 
