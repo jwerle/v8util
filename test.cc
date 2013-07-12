@@ -74,6 +74,8 @@ main (int argc, char *argv[]) {
 
 	v8::V8::Dispose();
 
+    printf("\n  \e[32m\u2713 \e[90mok\e[0m\n\n");
+
 	return 0;
 }
 
