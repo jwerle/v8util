@@ -1,6 +1,6 @@
 
 V8 = deps/v8/out/native/libv8.dylib
-SRC = include/v8-util.h src/v8-util.cc
+SRC = include/v8util.h src/v8util.cc
 FLAGS = -Iinclude -Ideps/v8/include -Ldeps/v8/src
 
 test:

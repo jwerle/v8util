@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include "v8.h"
-#include "v8-util.h"
+#include "v8util.h"
 
 
 const char *
