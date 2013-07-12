@@ -28,7 +28,7 @@ $ g++ v8/out/native/libv8.dylib v8util/out/libv8util -Iv8/include program.cc -o 
 If you've installed `v8util` with cpm then you can just reference the `v8util.h` and `v8util.cc` in your source files
 
 ```sh
-$ g++ v8/out/native/libv8.dylib deps/v8util.h deps/v8util.cc -Iv8/include program.cc -o program
+$ g++ v8/out/native/libv8.dylib deps/v8util.h deps/v8util.cc -Iv8/include -Ideps/v8util/include program.cc -o program
 ```
 
 ### node-gyp
