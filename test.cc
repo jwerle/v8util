@@ -65,7 +65,7 @@ main (int argc, char *argv[]) {
     v8::String::Utf8Value exception_jsutf(exception_js);
     const char *exception_cstrjs = v8util::strtocstr(exception_jsutf);
     assert(NULL != v8util::strtocstr(exception_jsutf));
-    bool exception_result = v8util::evaljs("v8util", exception_cstrjs, false);
+    bool exception_result = v8util::evaljs("v8util", exception_cstrjs);
     assert(!exception_result);
 
     context->Exit();
