@@ -2,7 +2,7 @@
   "name": "v8util",
   "version": "0.0.2",
   "description": "utilities for v8 development",
-  "src": ["include/v8-util.h", "src/v8-util.cc"],
+  "src": ["include/v8util.h", "src/v8util.cc"],
   "directories": {
     "test": "test"
   },
