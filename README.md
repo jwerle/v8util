@@ -78,7 +78,7 @@ v8::String::Utf8Value utfstr(str);
 v8util::print(utfstr)
 ```
 
-### v8::Handle<v8::String> readjs (const char *file);
+### v8::Handle\<v8::String> readjs (const char *file);
 
 Reads a JavaScript file into a a `v8::String` instance
 
@@ -93,7 +93,7 @@ const char *cstr = v8util::strtocstr(utfstr);
 assert(NULL != cstr);
 ```
 
-### v8::Handle<v8::Value> evaljs (const char *name, const char *source, bool print_result = false);
+### v8::Handle\<v8::Value> evaljs (const char *name, const char *source, bool print_result = false);
 
 Evaluates JavaScript from a given string and returns the v8 representation of its return value
 
