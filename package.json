@@ -1,5 +1,5 @@
 {
-  "name": "v8-util",
+  "name": "v8util",
   "version": "0.0.2",
   "description": "utilities for v8 development",
   "src": ["include/v8-util.h", "src/v8-util.cc"],

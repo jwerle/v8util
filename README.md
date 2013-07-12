@@ -1,4 +1,4 @@
-v8-util
+v8util
 =====
 
 utilities for v8 development
