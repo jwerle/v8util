@@ -1,7 +1,7 @@
 
-deps/
+deps/v8
 build/
 tmp/
 out/
-v8util.o
-include/v8util.h.gch
+*.o
+include/*.h.gch

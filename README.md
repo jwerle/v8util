@@ -65,7 +65,7 @@ assert(NULL != v8util::strtocstr(utfstr));
 printf("%s\n", v8util::strtocstr(utfstr));
 ```
 
-### void print (const v8::String::Utf8Value &str);
+### void Print (const v8::String::Utf8Value &str);
 
 Prints a `v8::String::Utf8Value` string to stdout
 
@@ -75,17 +75,17 @@ Prints a `v8::String::Utf8Value` string to stdout
 v8::Local<v8::String> str = v8::String::New("another string");
 v8::String::Utf8Value utfstr(str);
 
-v8util::print(utfstr)
+v8util::Print(utfstr)
 ```
 
-### v8::Handle\<v8::String> readjs (const char *file);
+### v8::Handle\<v8::String> ReadJs (const char *file);
 
 Reads a JavaScript file into a a `v8::String` instance
 
 ***example***
 
 ```c++
-v8::Local<v8::String> js = v8util::readjs("./path/to/file.js");
+v8::Local<v8::String> js = v8util::ReadJs("./path/to/file.js");
 v8::String::Utf8Value utfstr(js);
 
 const char *cstr = v8util::strtocstr(utfstr);
@@ -93,18 +93,18 @@ const char *cstr = v8util::strtocstr(utfstr);
 assert(NULL != cstr);
 ```
 
-### v8::Handle\<v8::Value> evaljs (const char *name, const char *source, bool report_exception = true, bool print_result = false);
+### v8::Handle\<v8::Value> EvalJs (const char *name, const char *source, bool report_exception = true, bool print_result = false);
 
 Evaluates JavaScript from a given string and returns the v8 representation of its return value
 
 ***example***
 
 ```c++
-v8::Local<v8::String> js = v8util::readjs("./path/to/file.js");
+v8::Local<v8::String> js = v8util::ReadJs("./path/to/file.js");
 v8::String::Utf8Value utfstr(js);
 
 const char *cstr = v8util::strtocstr(utfstr);
-v8::Handle<v8::Value> result = v8util::evaljs("v8util", cstr);
+v8::Handle<v8::Value> result = v8util::EvalJs("v8util", cstr);
 
 assert(!result.IsEmpty());
 ```
@@ -116,14 +116,17 @@ Reports an exception to stdout
 ***example***
 
 ```c++
-v8::Local<v8::String> js = v8util::readjs("./test/exception.js");
-v8::String::Utf8Value utfjs(js);
-
-const char *cstr = v8util::strtocstr(utfjs);
-bool exception_result = v8util::evaljs("v8util", cstr);
-
-assert(false == exception_result);
+v8util::Exception(&trycatch);
 ```
+
+### v8::Handle\<v8::Value> Compile (const char *file, bool report_exception = true, bool print_result = false)
+
+Reads, and evaluates JavaScript from a provided file source
+
+```js
+v8::Handle<v8::Value> result = v8util::Compile("./path/to/file.js");
+```
+
 
 ### void ThrowError (const char *message)
 

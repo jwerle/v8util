@@ -15,14 +15,14 @@ v8util::strtocstr (const v8::String::Utf8Value& str) {
 
 
 void
-v8util::print (const v8::String::Utf8Value &str) {
+v8util::Print (const v8::String::Utf8Value &str) {
 	const char *cstr = v8util::strtocstr(str);
 	printf("%s\n", cstr);
 }
 
 
 v8::Handle<v8::String> 
-v8util::readjs (const char *file) {
+v8util::ReadJs (const char *file) {
 	int size, read, i = 0;
 
 	FILE *fh = fopen(file, "rb");
@@ -64,7 +64,7 @@ v8util::readjs (const char *file) {
 
 
 v8::Handle<v8::Value>
-v8util::evaljs (const char *name, const char *source, bool report_exception, bool print_result) {
+v8util::EvalJs (const char *name, const char *source, bool report_exception, bool print_result) {
 	v8::Isolate *isolate = v8::Isolate::GetCurrent();
 	v8::HandleScope scope(isolate);
 	v8::Handle<v8::Value> empty_result;
@@ -74,7 +74,7 @@ v8util::evaljs (const char *name, const char *source, bool report_exception, boo
 	v8::Handle<v8::Script> script = v8::Script::Compile(v8::String::New(source), v8::String::New(name));
 
 	if (script.IsEmpty()) {
-		if (report_exception) v8util::exception(&trycatch);
+		if (report_exception) v8util::Exception(&trycatch);
 		return empty_result;
 	}
 
@@ -85,7 +85,7 @@ v8util::evaljs (const char *name, const char *source, bool report_exception, boo
 	if (result.IsEmpty()) {
 		// assert that we caught the exception before reporting it
 		assert(trycatch.HasCaught());
-		if (report_exception) v8util::exception(&trycatch);
+		if (report_exception) v8util::Exception(&trycatch);
 		return result;
 	}
 
@@ -103,7 +103,7 @@ v8util::evaljs (const char *name, const char *source, bool report_exception, boo
 
 
 void
-v8util::exception (v8::TryCatch *trycatch) {
+v8util::Exception (v8::TryCatch *trycatch) {
 	const char *string
 		, *filename_str
 		, *srcline_str
@@ -151,6 +151,17 @@ v8util::exception (v8::TryCatch *trycatch) {
     strace_str = v8util::strtocstr(strace);
     fprintf(stderr, "%s\n", strace_str);
   }
+}
+
+
+v8::Handle<v8::Value>
+v8util::Compile (const char *file, bool report_exception, bool print_result) {
+  v8::HandleScope scope(v8::Isolate::GetCurrent());
+  v8::Local<v8::String> source = v8util::ReadJs(file);
+  v8::String::Utf8Value jsstr(source);
+  const char *cstr = v8util::strtocstr(jsstr);
+  v8::Handle<v8::Value> result = v8util::EvalJs(file, cstr, true);
+  return result;
 }
 
 
