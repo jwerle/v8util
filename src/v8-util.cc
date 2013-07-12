@@ -124,6 +124,7 @@ v8util::exception (v8::TryCatch *trycatch) {
   } 
 
   /**
+   * borrowed from `shell.cc` from v8 source - thanks!
    * (filename):(line number): (message)
    */
 
