@@ -11,6 +11,20 @@ Using a C package manager like [cpm](https://github.com/visionmedia/cpm) you can
 $ cpm install jwerle/v8-util
 ```
 
+## building and linking in your project
+
+Build `libv8util` with `make`. (***requires g++***)
+
+```sh
+$ make build
+```
+
+You can now link `libv8util.so` found in `out/` to your project.
+
+```sh
+$ g++ v8/out/native/libv8.dylib v8util/out/libv8util -Iv8/include -Lv8/src program.cc -o program
+```
+
 ## api
 
 ### const char *v8util::strtocstr (const v8::String::Utf8Value &str)
@@ -22,6 +36,7 @@ Converts a `v8::String::Utf8Value` string to a c string
 ```c++
 v8::Local<v8::String> str = v8::String::New("some string");
 v8::String::Utf8Value utfstr(str);
+
 assert(NULL != v8util::strtocstr(utfstr));
 printf("%s\n", v8util::strtocstr(utfstr));
 ```
@@ -35,6 +50,7 @@ Prints a `v8::String::Utf8Value` string to stdout
 ```c++
 v8::Local<v8::String> str = v8::String::New("another string");
 v8::String::Utf8Value utfstr(str);
+
 v8util::print(utfstr)
 ```
 
@@ -47,7 +63,9 @@ Reads a JavaScript file into a a `v8::String` instance
 ```c++
 v8::Local<v8::String> js = v8util::readjs("./path/to/file.js");
 v8::String::Utf8Value utfstr(js);
+
 const char *cstr = v8util::strtocstr(utfstr);
+
 assert(NULL != cstr);
 ```
 
@@ -60,8 +78,10 @@ Evaluates JavaScript from a given string and returns the v8 representation of it
 ```c++
 v8::Local<v8::String> js = v8util::readjs("./path/to/file.js");
 v8::String::Utf8Value utfstr(js);
+
 const char *cstr = v8util::strtocstr(utfstr);
 v8::Handle<v8::Value> result = v8util::evaljs("v8util", cstr);
+
 assert(!result.IsEmpty());
 ```
 
@@ -74,9 +94,10 @@ Reports an exception to stdout
 ```c++
 v8::Local<v8::String> js = v8util::readjs("./test/exception.js");
 v8::String::Utf8Value utfjs(js);
+
 const char *cstr = v8util::strtocstr(utfjs);
-assert(NULL != v8util::strtocstr(utfjs));
 bool exception_result = v8util::evaljs("v8util", cstr);
+
 assert(false == exception_result);
 ```
 

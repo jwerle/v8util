@@ -1,7 +1,7 @@
 #ifndef V8_UTIL_H
 #define V8_UTIL_H
 
-#include "v8.h"
+#include <v8.h>
 
 namespace v8util {
 

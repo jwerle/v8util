@@ -1,2 +1,6 @@
 
 deps/
+build/
+tmp/
+out/
+v8util.o
