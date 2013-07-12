@@ -1,3 +1,3 @@
 (function (global) {
-	return true;
+	return {};
 })(this);

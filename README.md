@@ -13,7 +13,7 @@ $ cpm install jwerle/v8-util
 
 ## api
 
-### const char *v8util::strtocstr(const v8::String::Utf8Value &str)
+### const char *v8util::strtocstr (const v8::String::Utf8Value &str)
 
 Converts a `v8::String::Utf8Value` string to a c string
 
@@ -51,9 +51,9 @@ const char *cstr = v8util::strtocstr(utfstr);
 assert(NULL != cstr);
 ```
 
-### bool evaljs (const char *name, const char *source, bool print_result = false);
+### v8::Handle<v8::Value> evaljs (const char *name, const char *source, bool print_result = false);
 
-Evaluates JavaScript from a given string
+Evaluates JavaScript from a given string and returns the v8 representation of its return value
 
 ***example***
 
@@ -61,8 +61,8 @@ Evaluates JavaScript from a given string
 v8::Local<v8::String> js = v8util::readjs("./path/to/file.js");
 v8::String::Utf8Value utfstr(js);
 const char *cstr = v8util::strtocstr(utfstr);
-bool result = v8util::evaljs("v8util", cstr);
-assert(true == result);
+v8::Handle<v8::Value> result = v8util::evaljs("v8util", cstr);
+assert(!result.IsEmpty());
 ```
 
 ### void exception (v8::TryCatch *trycatch);

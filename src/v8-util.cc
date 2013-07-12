@@ -63,10 +63,11 @@ v8util::readjs (const char *file) {
 }
 
 
-bool
+v8::Handle<v8::Value>
 v8util::evaljs (const char *name, const char *source, bool print_result) {
 	v8::Isolate *isolate = v8::Isolate::GetCurrent();
 	v8::HandleScope scope(isolate);
+	v8::Handle<v8::Value> empty_result;
 	// capture exceptions
 	v8::TryCatch trycatch;
 	// compile source into a `v8::Script`
@@ -74,7 +75,7 @@ v8util::evaljs (const char *name, const char *source, bool print_result) {
 
 	if (script.IsEmpty()) {
 		if (print_result) v8util::exception(&trycatch);
-		return false;
+		return empty_result;
 	}
 
 	// execute the script if there were no errors
@@ -85,7 +86,7 @@ v8util::evaljs (const char *name, const char *source, bool print_result) {
 		// assert that we caught the exception before reporting it
 		assert(trycatch.HasCaught());
 		if (print_result) v8util::exception(&trycatch);
-		return false;
+		return result;
 	}
 
 	// assert exceptions have not been caught
@@ -97,7 +98,7 @@ v8util::evaljs (const char *name, const char *source, bool print_result) {
 		if (print_result) printf("%s\n", v8util::strtocstr(resultstr));
 	}
 
-	return true;
+	return result;
 }
 
 

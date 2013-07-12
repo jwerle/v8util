@@ -53,10 +53,10 @@ main (int argc, char *argv[]) {
      * `evaljs(const char *name, const char *source, bool print_result = false)` test
      */
 
-    bool basic_result = v8util::evaljs("v8util", basic_cstrjs);
-    assert(basic_result);
-
-
+    v8::Local<v8::Value> basic_value = v8util::evaljs("v8util", basic_cstrjs);
+    assert(!basic_value.IsEmpty());
+    
+    
     /**
      * `exception(v8::TryCatch *trycatch)` test
      */
@@ -65,8 +65,8 @@ main (int argc, char *argv[]) {
     v8::String::Utf8Value exception_jsutf(exception_js);
     const char *exception_cstrjs = v8util::strtocstr(exception_jsutf);
     assert(NULL != v8util::strtocstr(exception_jsutf));
-    bool exception_result = v8util::evaljs("v8util", exception_cstrjs);
-    assert(!exception_result);
+    v8::Handle<v8::Value> exception_value = v8util::evaljs("v8util", exception_cstrjs);
+    assert(exception_value.IsEmpty());
 
     context->Exit();
 

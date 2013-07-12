@@ -52,11 +52,11 @@ readjs (const char *file);
  * @namespace v8util
  * @param {const char} *name
  * @param {const char} *source
- * @param {bool} *print_result
- * @bool
+ * @param {bool} *print_result (default: `false`)
+ * @return {v8::Handle<v8::Value>}
  */
 
-bool
+v8::Handle<v8::Value>
 evaljs (const char *name, const char *source, bool print_result = false);
 
 
