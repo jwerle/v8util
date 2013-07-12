@@ -104,9 +104,9 @@ v8util::evaljs (const char *name, const char *source, bool print_result) {
 void
 v8util::exception (v8::TryCatch *trycatch) {
 	const char *string
-		, *filename_string
-		, *sourceline_string
-		, *stack_trace_string;
+		, *filename_str
+		, *srcline_str
+		, *strace_str;
 
 	int linenum, start, end, i;
 	
@@ -129,24 +129,24 @@ v8util::exception (v8::TryCatch *trycatch) {
 
   v8::String::Utf8Value filename(message->GetScriptResourceName());
   v8::String::Utf8Value sourceline(message->GetSourceLine());
-  v8::String::Utf8Value stack_trace(trycatch->StackTrace());
+  v8::String::Utf8Value strace(trycatch->StackTrace());
 
-  filename_string = v8util::strtocstr(filename);
+  filename_str = v8util::strtocstr(filename);
   linenum = message->GetLineNumber();
-  sourceline_string = v8util::strtocstr(sourceline);
+  srcline_str = v8util::strtocstr(sourceline);
   start = message->GetStartColumn();
   end = message->GetEndColumn();
 
-  fprintf(stderr, "%s:%i: %s\n", filename_string, linenum, string);
-  fprintf(stderr, "%s\n", sourceline_string);
+  fprintf(stderr, "%s:%i: %s\n", filename_str, linenum, string);
+  fprintf(stderr, "%s\n", srcline_str);
   
   for (i = 0; i < start; ++i) fprintf(stderr, " ");
   for (i = start; i < end; ++i) fprintf(stderr, "^");
 
   fprintf(stderr, "\n");
 
-  if (stack_trace.length() > 0) {
-    stack_trace_string = v8util::strtocstr(stack_trace);
-    fprintf(stderr, "%s\n", stack_trace_string);
+  if (strace.length() > 0) {
+    strace_str = v8util::strtocstr(strace);
+    fprintf(stderr, "%s\n", strace_str);
   }
 }
