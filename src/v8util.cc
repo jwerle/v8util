@@ -28,7 +28,12 @@ v8util::ReadJs (const char *file) {
 	FILE *fh = fopen(file, "rb");
   
   // return an empty string if we had a `NULL` return
-  if (NULL == fh) return v8::Handle<v8::String>();
+  if (NULL == fh) {
+    char msg[255];
+    sprintf(msg, "v8util.cc: error: Failed to open JavaScript source %s", file);
+    perror(msg);
+    return v8::Handle<v8::String>();
+  }
 
  	// seek pointer to the end of the stream in the file handle
   fseek(fh, 0, SEEK_END);
@@ -158,6 +163,7 @@ v8::Handle<v8::Value>
 v8util::Compile (const char *file, bool report_exception, bool print_result) {
   v8::HandleScope scope(v8::Isolate::GetCurrent());
   v8::Local<v8::String> source = v8util::ReadJs(file);
+  if (source.IsEmpty()) return v8::Handle<v8::Value>();
   v8::String::Utf8Value jsstr(source);
   const char *cstr = v8util::strtocstr(jsstr);
   v8::Handle<v8::Value> result = v8util::EvalJs(file, cstr, true);
