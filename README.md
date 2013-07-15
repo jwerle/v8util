@@ -5,10 +5,10 @@ utilities for v8 development
 
 ## install
 
-Using a C package manager like [cpm](https://github.com/visionmedia/cpm) you can install v8-util into the `deps/` directory of your project
+Using a C package manager like [cpm](https://github.com/visionmedia/cpm) you can install v8util into the `deps/` directory of your project
 
 ```sh
-$ cpm install jwerle/v8-util
+$ cpm install jwerle/v8util
 ```
 
 ## building and linking in your project
