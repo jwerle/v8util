@@ -3,6 +3,7 @@
   "version": "0.1.1",
   "description": "utilities for v8 development",
   "src": ["include/v8util.h", "src/v8util.cc"],
+  "install": "make install",
   "directories": {
     "test": "test"
   },

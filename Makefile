@@ -1,18 +1,24 @@
 
-V8 := deps/v8/out/native/libv8.dylib
 SRC := include/v8util.h src/v8util.cc
-FLAGS := -Iinclude -Ideps/v8/include
+OBJ := libv8util.so
+TEST := v8test
+PREFIX := /usr/local
+FLAGS := -I$(PREFIX)/include/v8 -lv8
 
 test:
-	g++ $(V8) $(SRC) $(FLAGS) test.cc -o v8-util-test
-	@v8-util-test
-	@rm -rf v8-util-test
-	@echo
+	g++ $(V8) $(SRC) $(FLAGS) test.cc -o $(TEST)
+	@$(TEST)
+	@rm -rf $(TEST)
 
 build:
 	@if test -d; then rm -rf out/ && mkdir out/; else mkdir out/; fi;
 	g++ $(FLAGS) -fpic -c $(SRC)
-	g++ $(V8) $(SRC) $(FLAGS) -shared -o out/libv8util.so
+	g++ $(V8) $(SRC) $(FLAGS) -shared -o out/$(OBJ)
+
+install: test build
+	cp ./include/*.h $(PREFIX)/include
+	cp ./out/$(OBJ) $(PREFIX)/lib
+
 
 
 .PHONY: test build

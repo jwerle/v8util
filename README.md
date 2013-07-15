@@ -5,31 +5,41 @@ utilities for v8 development
 
 ## install
 
-Using a C package manager like [cpm](https://github.com/visionmedia/cpm) you can install v8util into the `deps/` directory of your project
+Using a C package manager like [cpm](https://github.com/visionmedia/cpm) you can install v8util into the `deps/` directory of your project. It also installs to `/usr/local/include` and `/usr/local/lib` by default.
 
 ```sh
 $ cpm install jwerle/v8util
 ```
 
-## building and linking in your project
-
-Build `libv8util` with `make`. (***requires g++***)
+Just link in your compilation
 
 ```sh
-$ make build
+$ g++ -I/usr/local/include/v8 -lv8 -lv8util program.cc -o program
 ```
 
-You can now link `libv8util.so` found in `out/` to your project.
+## building and linking to your project from source
+
+Change to `v8util` root directory
 
 ```sh
-$ g++ v8/out/native/libv8.dylib v8util/out/libv8util -Iv8/include program.cc -o program
+$ cd v8util/
 ```
 
-If you've installed `v8util` with cpm then you can just reference the `v8util.h` and `v8util.cc` in your source files
+Install `libv8util` with `make`. (***requires g++***)
+
+You can set the `PREFIX` variable to be whatever you would like. Defaults to `/usr/local/`
 
 ```sh
-$ g++ v8/out/native/libv8.dylib deps/v8util.h deps/v8util.cc -Iv8/include -Ideps/v8util/include program.cc -o program
+$ make install
 ```
+
+You can now link `v8util` to your project
+
+
+```sh
+$ g++ -I/usr/local/include/v8 -lv8 -lv8util program.cc -o program
+```
+
 
 ### node-gyp
 
