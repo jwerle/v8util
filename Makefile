@@ -3,7 +3,7 @@ SRC := include/v8util.h src/v8util.cc
 OBJ := libv8util.so
 TEST := v8test
 PREFIX := /usr/local
-FLAGS := -I$(PREFIX)/include/v8 -lv8
+FLAGS := -Iinclude -I$(PREFIX)/include/v8 -lv8
 
 test:
 	g++ $(V8) $(SRC) $(FLAGS) test.cc -o $(TEST)
@@ -18,7 +18,5 @@ build:
 install: test build
 	cp ./include/*.h $(PREFIX)/include
 	cp ./out/$(OBJ) $(PREFIX)/lib
-
-
 
 .PHONY: test build
