@@ -25,7 +25,7 @@ Change to `v8util` root directory
 $ cd v8util/
 ```
 
-Install `libv8util` with `make`. (***requires g++***)
+Install `libv8util` with `make`. ***requires g++***
 
 You can set the `PREFIX` variable to be whatever you would like. Defaults to `/usr/local/`
 
