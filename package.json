@@ -14,6 +14,10 @@
     "v8",
     "util"
   ],
+  "repo": "jwerle/v8util",
+  "repository" : {
+  	"git": "git@github.com:jwerle/v8util.git"
+  },
   "author": "Joseph Werle <joseph.werle@gmail.com>",
   "license": "MIT"
 }
